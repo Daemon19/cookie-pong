@@ -1,4 +1,5 @@
 #include "window.h"
+#include "log.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -17,6 +18,8 @@ namespace cookie
             SDL_DestroyRenderer(renderer_);
             renderer_ = nullptr;
         }
+
+        log::Info("Window instance dihancurkan");
     }
 
     bool Window::Init()
@@ -25,7 +28,7 @@ namespace cookie
                                    SDL_WINDOWPOS_CENTERED, width_, height_, 0);
         if (window_ == nullptr)
         {
-            std::cerr << "Gagal membuat window: " << SDL_GetError() << std::endl;
+            log::SdlError("Gagal membuat window: ");
             return false;
         }
 
@@ -34,7 +37,7 @@ namespace cookie
                                            SDL_RENDERER_PRESENTVSYNC);
         if (renderer_ == nullptr)
         {
-            std::cerr << "Gagal membuat renderer: " << SDL_GetError() << std::endl;
+            log::SdlError("Gagal membuat renderer: ");
             return false;
         }
 
