@@ -1,3 +1,4 @@
+#include "window.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -13,19 +14,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    SDL_Window *window = SDL_CreateWindow("Pong", 0, 0, kWindowWidth,
-                                          kWindowHeight, 0);
-    if (window == NULL)
+    cookie::Window window("Pong", kWindowWidth, kWindowHeight);
+
+    if (!window.Init())
     {
-        std::cerr << "[ERROR] Gagal membuat window: " << SDL_GetError()
-                  << std::endl;
         SDL_Quit();
         return -1;
     }
-
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
-                                                SDL_RENDERER_ACCELERATED |
-                                                    SDL_RENDERER_PRESENTVSYNC);
 
     bool game_running = true;
 
@@ -41,13 +36,11 @@ int main(int argc, char *argv[])
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 150, 200, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
+        SDL_SetRenderDrawColor(window.renderer(), 0, 150, 200, 255);
+        SDL_RenderClear(window.renderer());
+        SDL_RenderPresent(window.renderer());
     }
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
     SDL_Quit();
 
     return 0;
