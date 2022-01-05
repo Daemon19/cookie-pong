@@ -33,7 +33,7 @@ namespace cookie::log
     {
         if (log_level <= kLevelError)
         {
-            std::cerr << "[ERROR] " << message << ": " << SDL_GetError()
+            std::cerr << "[SDL ERROR] " << message << ": " << SDL_GetError()
                       << std::endl;
         }
     }
