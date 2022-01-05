@@ -5,8 +5,8 @@ BUILD=build
 
 CPP=g++
 CXXFLAGS=-Wall -g -std=c++2a
-LDLIBS=-L M:/mingw-w64/SDL2-2.0.18/x86_64-w64-mingw32/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf
-INCFLAGS=-m64 -I M:/mingw-w64/SDL2-2.0.18/x86_64-w64-mingw32/include -I $(INCLUDE)
+LDLIBS=-lmingw32 -lSDL2main -lSDL2
+INCFLAGS=-m64 -I $(INCLUDE)
 
 INCLUDES=$(wildcard $(INCLUDE)/*.h)
 SRCS=$(patsubst $(INCLUDE)/%.h, $(SRC)/%.cc, $(INCLUDES))
@@ -16,7 +16,7 @@ MAIN=main
 MAINSRC=$(SRC)/$(MAIN).cc
 MAINOBJ=$(OBJ)/$(MAIN).o
 
-BIN=cookie-pong.exe
+BIN=$(BUILD)/cookie-pong.exe
 
 all: $(BIN)
 
