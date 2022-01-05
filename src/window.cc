@@ -18,8 +18,6 @@ namespace cookie
             SDL_DestroyRenderer(renderer_);
             renderer_ = nullptr;
         }
-
-        log::Info("Window instance dihancurkan");
     }
 
     bool Window::Init()
@@ -28,7 +26,7 @@ namespace cookie
                                    SDL_WINDOWPOS_CENTERED, width_, height_, 0);
         if (window_ == nullptr)
         {
-            log::SdlError("Gagal membuat window: ");
+            log::SdlError("Gagal membuat window");
             return false;
         }
 
@@ -37,7 +35,7 @@ namespace cookie
                                            SDL_RENDERER_PRESENTVSYNC);
         if (renderer_ == nullptr)
         {
-            log::SdlError("Gagal membuat renderer: ");
+            log::SdlError("Gagal membuat renderer");
             return false;
         }
 
