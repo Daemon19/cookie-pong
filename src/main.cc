@@ -1,16 +1,23 @@
-#include "window.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
+#include "entities.h"
+#include "log.h"
+#include "window.h"
+
 const int kWindowWidth = 800;
 const int kWindowHeight = 600;
+
+const int kPlayerCount = 2;
+const int kPlayerWidth = 12;
+const int kPlayerHeight = 120;
+const int kPlayerXOff = 10;
 
 int main(int argc, char *argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        std::cerr << "[ERROR] Gagal menginisialisasi SDL: " << SDL_GetError()
-                  << std::endl;
+        cookie::log::SdlError("[ERROR] Gagal menginisialisasi SDL");
         return -1;
     }
 
@@ -21,6 +28,13 @@ int main(int argc, char *argv[])
         SDL_Quit();
         return -1;
     }
+
+    float tmp_player_y = (kWindowHeight - kPlayerHeight) / 2.0f;
+
+    Player players[kPlayerCount] = {Player(kPlayerXOff, tmp_player_y,
+                                           kPlayerWidth, kPlayerHeight),
+                                    Player(kWindowWidth - kPlayerWidth - kPlayerXOff,
+                                           tmp_player_y, kPlayerWidth, kPlayerHeight)};
 
     bool game_running = true;
 
@@ -34,10 +48,50 @@ int main(int argc, char *argv[])
             {
                 game_running = false;
             }
+            if (e.type == SDL_KEYDOWN)
+            {
+                switch (e.key.keysym.sym)
+                {
+                case (SDLK_w):
+                    players[0].set_move_up(true);
+                    break;
+
+                case (SDLK_s):
+                    players[0].set_move_down(true);
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            if (e.type == SDL_KEYUP)
+            {
+                switch (e.key.keysym.sym)
+                {
+                case (SDLK_w):
+                    players[0].set_move_up(false);
+                    break;
+
+                case (SDLK_s):
+                    players[0].set_move_down(false);
+                    break;
+
+                default:
+                    break;
+                }
+            }
         }
 
-        SDL_SetRenderDrawColor(window.renderer(), 0, 150, 200, 255);
+        SDL_SetRenderDrawColor(window.renderer(), 90, 44, 34, 255);
         SDL_RenderClear(window.renderer());
+
+        for (Player &p : players)
+        {
+            p.Draw(window.renderer());
+            p.Update();
+            p.CheckBorder(kWindowWidth, kWindowHeight);
+        }
+
         SDL_RenderPresent(window.renderer());
     }
 
