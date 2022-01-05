@@ -20,7 +20,7 @@ namespace cookie
         // Return true jika berhasil
         bool Init();
 
-        inline SDL_Window *window() { return window_; }
-        inline SDL_Renderer *renderer() { return renderer_; }
+        SDL_Window *window() { return window_; }
+        SDL_Renderer *renderer() { return renderer_; }
     };
 }
