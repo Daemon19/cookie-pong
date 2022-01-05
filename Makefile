@@ -26,7 +26,7 @@ run:
 
 release: CXXFLAGS=-Wall -std=c++2a -O2 -DNDEBUG
 release:
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(SRCS) $(MAINSRC) -o $(DIST)/$(BIN) $^ $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(SRCS) $(MAINSRC) -o $(BIN) $^ $(LDLIBS)
 
 $(BIN): $(OBJS) $(MAINOBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDLIBS)
