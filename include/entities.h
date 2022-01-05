@@ -18,6 +18,8 @@ public:
 
     virtual void Update() = 0;
     virtual void CheckBorder(int max_x, int max_y) = 0;
+
+    cookie::Rect rect() { return rect_; }
 };
 
 class Player : public Entity
@@ -32,9 +34,25 @@ public:
           move_down_(false) {}
 
     void Update() override;
-    // TODO: variable dibutuhkan untuk override, tapi tidak untuk isi fungsi
     void CheckBorder(int /* max_x */, int max_y) override;
 
     void set_move_up(bool val) { move_up_ = val; }
     void set_move_down(bool val) { move_down_ = val; }
+};
+
+class Ball : public Entity
+{
+private:
+    bool move_up_, move_left_;
+
+public:
+    Ball(float x, float y, int w, int h)
+        : Entity(x, y, w, h, SDL_Color{239, 226, 178, 255}, 7),
+          move_up_(false),
+          move_left_(false) {}
+
+    void Update() override {};
+    void CheckBorder(int max_x, int max_y) override;
+
+    void MoveAndCheckCollision(Player players[], int player_count);
 };

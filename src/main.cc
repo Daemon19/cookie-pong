@@ -15,6 +15,8 @@ const int kPlayerWidth = 12;
 const int kPlayerHeight = 120;
 const int kPlayerXOff = 10;
 
+const int kBallWidth = 14;
+
 int main(int argc, char *argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -37,6 +39,12 @@ int main(int argc, char *argv[])
                                            kPlayerWidth, kPlayerHeight),
                                     Player(kWindowWidth - kPlayerWidth - kPlayerXOff,
                                            tmp_player_y, kPlayerWidth, kPlayerHeight)};
+
+    Ball ball((kWindowWidth - kBallWidth) / 2.0f,
+              (kWindowHeight - kBallWidth) / 2.0f,
+              kBallWidth, kBallWidth);
+
+    Entity *entities[kPlayerCount + 1 /* ball */] = {&players[0], &players[1], &ball};
 
     bool game_running = true;
 
@@ -62,6 +70,14 @@ int main(int argc, char *argv[])
                     players[0].set_move_down(true);
                     break;
 
+                case (SDLK_UP):
+                    players[1].set_move_up(true);
+                    break;
+
+                case (SDLK_DOWN):
+                    players[1].set_move_down(true);
+                    break;
+
                 default:
                     break;
                 }
@@ -78,6 +94,14 @@ int main(int argc, char *argv[])
                     players[0].set_move_down(false);
                     break;
 
+                case (SDLK_UP):
+                    players[1].set_move_up(false);
+                    break;
+
+                case (SDLK_DOWN):
+                    players[1].set_move_down(false);
+                    break;
+
                 default:
                     break;
                 }
@@ -89,12 +113,14 @@ int main(int argc, char *argv[])
                                kBackgroundColor.a);
         SDL_RenderClear(window.renderer());
 
-        for (Player &p : players)
+        for (Entity *e : entities)
         {
-            p.Draw(window.renderer());
-            p.Update();
-            p.CheckBorder(kWindowWidth, kWindowHeight);
+            e->Draw(window.renderer());
+            e->Update();
+            e->CheckBorder(kWindowWidth, kWindowHeight);
         }
+
+        ball.MoveAndCheckCollision(players, kPlayerCount);
 
         SDL_RenderPresent(window.renderer());
     }
