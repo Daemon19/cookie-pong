@@ -8,6 +8,8 @@
 const int kWindowWidth = 800;
 const int kWindowHeight = 600;
 
+const SDL_Color kBackgroundColor{90, 44, 34, 255};
+
 const int kPlayerCount = 2;
 const int kPlayerWidth = 12;
 const int kPlayerHeight = 120;
@@ -17,7 +19,7 @@ int main(int argc, char *argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        cookie::log::SdlError("[ERROR] Gagal menginisialisasi SDL");
+        cookie::log::SdlError("Gagal menginisialisasi SDL");
         return -1;
     }
 
@@ -82,7 +84,9 @@ int main(int argc, char *argv[])
             }
         }
 
-        SDL_SetRenderDrawColor(window.renderer(), 90, 44, 34, 255);
+        SDL_SetRenderDrawColor(window.renderer(), kBackgroundColor.r,
+                               kBackgroundColor.g, kBackgroundColor.b,
+                               kBackgroundColor.a);
         SDL_RenderClear(window.renderer());
 
         for (Player &p : players)
