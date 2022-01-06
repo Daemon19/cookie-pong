@@ -1,20 +1,23 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <string>
 
 namespace cookie
 {
     class Window
     {
+    public:
+        const std::string kTitle;
+        const int kWidth, kHeight;
+
     private:
-        const char *title_;
-        int width_, height_;
         SDL_Window *window_ = nullptr;
         SDL_Renderer *renderer_ = nullptr;
 
     public:
-        Window(const char *title, int width, int height)
-            : title_(title), width_(width), height_(height) {}
+        Window(const std::string &title, int p_width, int p_height)
+            : kTitle(title), kWidth(p_width), kHeight(p_height) {}
         ~Window();
 
         // Return true jika berhasil

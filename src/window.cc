@@ -1,7 +1,7 @@
 #include "window.h"
 #include "log.h"
 #include <SDL2/SDL.h>
-#include <iostream>
+#include <string>
 
 namespace cookie
 {
@@ -22,8 +22,10 @@ namespace cookie
 
     bool Window::Init()
     {
-        window_ = SDL_CreateWindow(title_, SDL_WINDOWPOS_CENTERED,
-                                   SDL_WINDOWPOS_CENTERED, width_, height_, 0);
+        window_ = SDL_CreateWindow(kTitle.c_str(),
+                                   SDL_WINDOWPOS_CENTERED,
+                                   SDL_WINDOWPOS_CENTERED,
+                                   kWidth, kHeight, 0);
         if (window_ == nullptr)
         {
             log::SdlError("Gagal membuat window");
