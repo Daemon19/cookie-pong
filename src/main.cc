@@ -117,10 +117,11 @@ int main(int argc, char *argv[])
         {
             e->Draw(window.renderer());
             e->Update();
-            e->CheckBorder(kWindowWidth, kWindowHeight);
+            e->CheckVerticalBorder(kWindowHeight);
         }
 
         ball.MoveAndCheckCollision(players, kPlayerCount);
+        ball.CheckHorizontalBorder(kWindowWidth, players[0], players[1]);
 
         SDL_RenderPresent(window.renderer());
     }

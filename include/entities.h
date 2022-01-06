@@ -18,31 +18,12 @@ public:
     void Draw(SDL_Renderer *renderer) { rect_.DrawRect(renderer, color_); }
 
     virtual void Update() = 0;
-    virtual void CheckBorder(int max_x, int max_y) = 0;
+    virtual void CheckVerticalBorder(int max_y) = 0;
 
     cookie::Rect rect() { return rect_; }
 };
 
-class Player : public Entity
-{
-public:
-    const float kVel = 6;
-
-private:
-    bool move_up_, move_down_;
-
-public:
-    Player(float x, float y, int w, int h)
-        : Entity(x, y, w, h, SDL_Color{189, 140, 97, 255}),
-          move_up_(false),
-          move_down_(false) {}
-
-    void Update() override;
-    void CheckBorder(int /* max_x */, int max_y) override;
-
-    void set_move_up(bool val) { move_up_ = val; }
-    void set_move_down(bool val) { move_down_ = val; }
-};
+class Player;
 
 class Ball : public Entity
 {
@@ -59,11 +40,41 @@ public:
           start_pos_(x, y) { Reset(); }
 
     void Update() override {}
-    void CheckBorder(int max_x, int max_y) override;
-
+    void CheckVerticalBorder(int max_y) override;
+    void CheckHorizontalBorder(int max_x,
+                               Player &player_left,
+                               Player &player_right);
     void MoveAndCheckCollision(Player players[], int player_count);
 
 private:
     bool randomBool() { return rand() % 2 == 1; }
     void Reset();
+};
+
+class Player : public Entity
+{
+public:
+    const float kVel = 6;
+
+private:
+    bool move_up_, move_down_;
+    int score_;
+
+public:
+    Player(float x, float y, int w, int h)
+        : Entity(x, y, w, h, SDL_Color{189, 140, 97, 255}),
+          move_up_(false),
+          move_down_(false),
+          score_(0) {}
+
+    void Update() override;
+    void CheckVerticalBorder(int max_y) override;
+
+    friend void Ball::CheckHorizontalBorder(int max_x,
+                                            Player &player_left,
+                                            Player &player_right);
+
+    int score() { return score_; }
+    void set_move_up(bool val) { move_up_ = val; }
+    void set_move_down(bool val) { move_down_ = val; }
 };

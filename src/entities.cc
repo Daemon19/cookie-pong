@@ -12,7 +12,7 @@ void Player::Update()
     rect_.y += movement;
 }
 
-void Player::CheckBorder(int /* max_x */, int max_y)
+void Player::CheckVerticalBorder(int max_y)
 {
     if (rect_.y < 0)
         rect_.y = 0;
@@ -20,13 +20,8 @@ void Player::CheckBorder(int /* max_x */, int max_y)
         rect_.set_bottom(max_y);
 }
 
-void Ball::CheckBorder(int max_x, int max_y)
+void Ball::CheckVerticalBorder(int max_y)
 {
-    if (rect_.right() < 0)
-        Reset();
-    if (rect_.x > max_x)
-        Reset();
-
     if (rect_.y < 0)
     {
         rect_.y = 0;
@@ -36,6 +31,20 @@ void Ball::CheckBorder(int max_x, int max_y)
     {
         rect_.set_bottom(max_y);
         move_up_ = !move_up_;
+    }
+}
+
+void Ball::CheckHorizontalBorder(int max_x, Player &player_left, Player &player_right)
+{
+    if (rect_.right() < 0)
+    {
+        player_right.score_++;
+        Reset();
+    }
+    if (rect_.x > max_x)
+    {
+        player_left.score_++;
+        Reset();
     }
 }
 
