@@ -16,7 +16,7 @@ namespace cookie
         SDL_Renderer *renderer_ = nullptr;
 
     public:
-        Window(Window &) = delete;
+        Window(const Window &) = delete;
 
         Window(const std::string &title, int p_width, int p_height)
             : kTitle(title), kWidth(p_width), kHeight(p_height) {}

@@ -5,7 +5,7 @@ BUILD=build
 
 CXX=g++
 CXXFLAGS=-Wall -g -std=c++2a
-LDLIBS=-lmingw32 -lSDL2main -lSDL2
+LDLIBS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf
 INCFLAGS=-I $(INCLUDE)
 
 SRCS=$(wildcard $(SRC)/*.cc)
@@ -33,4 +33,4 @@ $(OBJ)/%.o: $(SRC)/%.cc Makefile
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -MMD -MP -c -o $@ $<
 
 clean:
-	$(RM) $(OBJ)/* $(DEPEND)/* $(BIN)
+	$(RM) $(OBJ)/* $(BIN)
