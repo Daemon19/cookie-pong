@@ -17,7 +17,7 @@ namespace cookie
     {
         if ((font_ = TTF_OpenFont(file_path.c_str(), size)) == NULL)
         {
-            log::Error("Gagal membuka font");
+            log::SdlError("Gagal membuka font");
             return false;
         }
         return true;
