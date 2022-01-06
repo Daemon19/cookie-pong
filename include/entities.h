@@ -2,6 +2,7 @@
 
 #include "rect.h"
 #include <SDL2/SDL.h>
+#include <random>
 
 class Entity
 {
@@ -48,11 +49,14 @@ private:
 public:
     Ball(float x, float y, int w, int h)
         : Entity(x, y, w, h, SDL_Color{239, 226, 178, 255}, 7),
-          move_up_(false),
-          move_left_(false) {}
+          move_up_(randomBool()),
+          move_left_(randomBool()) {}
 
-    void Update() override {};
+    void Update() override{};
     void CheckBorder(int max_x, int max_y) override;
 
     void MoveAndCheckCollision(Player players[], int player_count);
+
+private:
+    bool randomBool() { return rand() % 2 == 1; }
 };
