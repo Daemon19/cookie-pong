@@ -3,18 +3,16 @@ SRC=src
 OBJ=obj
 BUILD=build
 
-CPP=g++
+CXX=g++
 CXXFLAGS=-Wall -g -std=c++2a
 LDLIBS=-lmingw32 -lSDL2main -lSDL2
-INCFLAGS=-m64 -I $(INCLUDE)
+INCFLAGS=-I $(INCLUDE)
 
-INCLUDES=$(wildcard $(INCLUDE)/*.h)
-SRCS=$(patsubst $(INCLUDE)/%.h, $(SRC)/%.cc, $(INCLUDES))
+SRCS=$(wildcard $(SRC)/*.cc)
 OBJS=$(patsubst $(SRC)/%.cc, $(OBJ)/%.o, $(SRCS))
+DEPENDS=$(patsubst $(SRC)/%.cc, %.d, $(SRCS))
 
-MAIN=main
-MAINSRC=$(SRC)/$(MAIN).cc
-MAINOBJ=$(OBJ)/$(MAIN).o
+-include $(DEPENDS)
 
 BIN=$(BUILD)/cookie-pong.exe
 
@@ -26,16 +24,13 @@ run:
 
 release: CXXFLAGS=-Wall -std=c++2a -O2 -DNDEBUG
 release:
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(SRCS) $(MAINSRC) -o $(BIN) $^ $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(SRCS) -o $(BIN) $^ $(LDLIBS)
 
-$(BIN): $(OBJS) $(MAINOBJ)
+$(BIN): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDLIBS)
 
-$(OBJ)/%.o: $(SRC)/%.cc $(INCLUDE)/%.h
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c -o $@ $<
-
-$(MAINOBJ): $(MAINSRC)
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c -o $@ $<
+$(OBJ)/%.o: $(SRC)/%.cc Makefile
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -MMD -MP -c -o $@ $<
 
 clean:
-	rm -v $(OBJ)/* $(BIN)
+	$(RM) $(OBJ)/* $(DEPEND)/* $(BIN)
