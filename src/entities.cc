@@ -5,9 +5,9 @@ void Player::Update()
     float movement = 0;
 
     if (move_up_)
-        movement -= vel_;
+        movement -= kVel;
     if (move_down_)
-        movement += vel_;
+        movement += kVel;
 
     rect_.y += movement;
 }
@@ -22,16 +22,10 @@ void Player::CheckBorder(int /* max_x */, int max_y)
 
 void Ball::CheckBorder(int max_x, int max_y)
 {
-    if (rect_.x < 0)
-    {
-        rect_.x = 0;
-        move_left_ = !move_left_;
-    }
-    if (rect_.right() > max_x)
-    {
-        rect_.set_right(max_x);
-        move_left_ = !move_left_;
-    }
+    if (rect_.right() < 0)
+        Reset();
+    if (rect_.x > max_x)
+        Reset();
 
     if (rect_.y < 0)
     {
@@ -61,6 +55,7 @@ void Ball::MoveAndCheckCollision(Player players[], int player_count)
                 rect_.set_right(player_rect.x);
 
             move_left_ = !move_left_;
+            vel_ = kMainVel_;
         }
     }
 
@@ -78,6 +73,15 @@ void Ball::MoveAndCheckCollision(Player players[], int player_count)
                 rect_.set_bottom(player_rect.y);
 
             move_up_ = !move_up_;
+            vel_ = kMainVel_;
         }
     }
+}
+
+void Ball::Reset()
+{
+    rect_.set_pos(start_pos_);
+    move_up_ = randomBool();
+    move_left_ = randomBool();
+    vel_ = kStartVel_;
 }

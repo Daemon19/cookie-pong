@@ -1,5 +1,6 @@
 #pragma once
 
+#include "vector.h"
 #include <SDL2/SDL.h>
 
 namespace cookie
@@ -14,8 +15,16 @@ namespace cookie
 
         float right() { return x + w; }
         float bottom() { return y + h; }
+        Vector2 pos() { return Vector2(x, y); }
+
         void set_right(float val) { x = val - w; }
         void set_bottom(float val) { y = val - h; }
+        void set_pos(float p_x, float p_y)
+        {
+            x = p_x;
+            y = p_y;
+        }
+        void set_pos(Vector2 pos) { set_pos(pos.x, pos.y); }
 
         bool CollideRect(Rect &other);
         void DrawRect(SDL_Renderer *renderer, Uint32 r, Uint32 g, Uint32 b, Uint32 a = 255);
