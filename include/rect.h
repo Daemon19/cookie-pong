@@ -27,12 +27,9 @@ namespace cookie
         void set_pos(Vector2 pos) { set_pos(pos.x, pos.y); }
 
         bool CollideRect(Rect &other);
-        void DrawRect(SDL_Renderer *renderer, Uint32 r, Uint32 g, Uint32 b, Uint32 a = 255);
+        void DrawRect(SDL_Renderer *renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
         void DrawRect(SDL_Renderer *renderer, const SDL_Color &color);
 
-        SDL_Rect SdlRect()
-        {
-            return SDL_Rect{.x = (int)x, .y = (int)y, .w = w, .h = h};
-        }
+        SDL_Rect SdlRect() { return SDL_Rect{.x = (int)x, .y = (int)y, .w = w, .h = h}; }
     };
 }

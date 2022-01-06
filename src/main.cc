@@ -108,8 +108,10 @@ int main(int argc, char *argv[])
             }
         }
 
-        SDL_SetRenderDrawColor(window.renderer(), kBackgroundColor.r,
-                               kBackgroundColor.g, kBackgroundColor.b,
+        SDL_SetRenderDrawColor(window.renderer(),
+                               kBackgroundColor.r,
+                               kBackgroundColor.g,
+                               kBackgroundColor.b,
                                kBackgroundColor.a);
         SDL_RenderClear(window.renderer());
 
