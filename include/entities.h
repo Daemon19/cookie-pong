@@ -66,12 +66,12 @@ public:
           move_down_(false),
           score_(0) {}
 
-    void Update() override;
-    void CheckVerticalBorder(int max_y) override;
-
     friend void Ball::CheckHorizontalBorder(int max_x,
                                             Player &player_left,
                                             Player &player_right);
+
+    void Update() override;
+    void CheckVerticalBorder(int max_y) override;
 
     int score() { return score_; }
     void set_move_up(bool val) { move_up_ = val; }

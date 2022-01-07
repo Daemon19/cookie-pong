@@ -6,11 +6,13 @@ const int kWindowWidth = 800;
 const int kWindowHeight = 600;
 
 const SDL_Color kBackgroundColor{90, 44, 34, 255};
+const SDL_Color kWhite{255, 255, 255, 0};
 
 const int kPlayerCount = 2;
 const int kPlayerWidth = 12;
 const int kPlayerHeight = 120;
 const int kPlayerXOff = 10;
+const int kPlayerScoreOff = 60;
 
 const int kBallWidth = 14;
 
@@ -119,11 +121,17 @@ int main(int argc, char *argv[])
         ball.MoveAndCheckCollision(players, kPlayerCount);
         ball.CheckHorizontalBorder(kWindowWidth, players[0], players[1]);
 
-        cookie::Texture text_tex = font.CreateTexture(window, "Cookie Pong", SDL_Color{255, 255, 255, 255});
+        for (int i = 0; i < kPlayerCount; i++)
+        {
+            cookie::Texture score_tex = font.CreateTexture(window, std::to_string(players[i].score()), kWhite);
 
-        SDL_Rect text_rect{0, 0, text_tex.w(), text_tex.h()};
+            cookie::Rect score_rect(0, 0, score_tex.w(), score_tex.h());
+            score_rect.set_centerx((i == 0) ? kPlayerScoreOff : kWindowWidth - kPlayerScoreOff);
+            score_rect.set_centery(kPlayerScoreOff);
 
-        SDL_RenderCopy(window.renderer(), text_tex.sdl_tex(), NULL, &text_rect);
+            SDL_Rect rect = score_rect;
+            SDL_RenderCopy(window.renderer(), score_tex.sdl_tex(), NULL, &rect);
+        }
 
         SDL_RenderPresent(window.renderer());
     }

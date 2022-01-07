@@ -1,25 +1,5 @@
 #include "entities.h"
 
-void Player::Update()
-{
-    float movement = 0;
-
-    if (move_up_)
-        movement -= kVel;
-    if (move_down_)
-        movement += kVel;
-
-    rect_.y += movement;
-}
-
-void Player::CheckVerticalBorder(int max_y)
-{
-    if (rect_.y < 0)
-        rect_.y = 0;
-    if (rect_.bottom() > max_y)
-        rect_.set_bottom(max_y);
-}
-
 void Ball::CheckVerticalBorder(int max_y)
 {
     if (rect_.y < 0)
@@ -93,4 +73,24 @@ void Ball::Reset()
     move_up_ = randomBool();
     move_left_ = randomBool();
     vel_ = kStartVel_;
+}
+
+void Player::Update()
+{
+    float movement = 0;
+
+    if (move_up_)
+        movement -= kVel;
+    if (move_down_)
+        movement += kVel;
+
+    rect_.y += movement;
+}
+
+void Player::CheckVerticalBorder(int max_y)
+{
+    if (rect_.y < 0)
+        rect_.y = 0;
+    if (rect_.bottom() > max_y)
+        rect_.set_bottom(max_y);
 }
