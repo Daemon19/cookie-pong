@@ -3,21 +3,12 @@
 
 namespace cookie
 {
-    bool Rect::CollideRect(Rect &other)
+    void Rect::DrawRect(SDL_Renderer *renderer, Uint8 r,
+                        Uint8 g, Uint8 b, Uint8 a)
     {
-        return (x < other.right() && right() > other.x &&
-                y < other.bottom() && bottom() > other.y);
-    }
+        SDL_Rect rect = sdl_rect();
 
-    void Rect::DrawRect(SDL_Renderer *renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-    {
         SDL_SetRenderDrawColor(renderer, r, g, b, a);
-        SDL_Rect sdl_rect = SdlRect();
-        SDL_RenderFillRect(renderer, &sdl_rect);
-    }
-
-    void Rect::DrawRect(SDL_Renderer *renderer, const SDL_Color &color)
-    {
-        DrawRect(renderer, color.r, color.g, color.b, color.a);
+        SDL_RenderFillRect(renderer, &rect);
     }
 }

@@ -4,12 +4,11 @@
 
 namespace cookie
 {
-    class Initializer
+    struct Initializer
     {
-    public:
         ~Initializer();
 
-        bool InitSdl(Uint32 flags = SDL_INIT_EVERYTHING);
-        bool InitTtf();
+        void InitSdl(Uint32 flags = SDL_INIT_EVERYTHING);
+        void InitTtf();
     };
 }

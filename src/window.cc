@@ -1,46 +1,31 @@
 #include "window.h"
-#include "log.h"
-#include <SDL2/SDL.h>
+#include "cookie_error.h"
 #include <string>
 
 namespace cookie
 {
+    Window::Window(const std::string &title, int width, int height,
+                   Uint32 window_flags, Uint32 renderer_flags)
+        : window_(nullptr), renderer_(nullptr)
+    {
+        window_ = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED,
+                                   SDL_WINDOWPOS_CENTERED, width, height, window_flags);
+
+        if (window_ == nullptr)
+            throw SdlError("Gagal membuat window");
+
+        renderer_ = SDL_CreateRenderer(window_, -1, renderer_flags);
+
+        if (renderer_ == nullptr)
+            throw SdlError("Gagal membuat renderer");
+    }
+
     Window::~Window()
     {
         if (window_ != nullptr)
-        {
             SDL_DestroyWindow(window_);
-            window_ = nullptr;
-        }
 
         if (renderer_ != nullptr)
-        {
             SDL_DestroyRenderer(renderer_);
-            renderer_ = nullptr;
-        }
-    }
-
-    bool Window::Init()
-    {
-        window_ = SDL_CreateWindow(kTitle.c_str(),
-                                   SDL_WINDOWPOS_CENTERED,
-                                   SDL_WINDOWPOS_CENTERED,
-                                   kWidth, kHeight, 0);
-        if (window_ == nullptr)
-        {
-            log::SdlError("Gagal membuat window");
-            return false;
-        }
-
-        renderer_ = SDL_CreateRenderer(window_, -1,
-                                       SDL_RENDERER_ACCELERATED |
-                                           SDL_RENDERER_PRESENTVSYNC);
-        if (renderer_ == nullptr)
-        {
-            log::SdlError("Gagal membuat renderer");
-            return false;
-        }
-
-        return true;
     }
 }

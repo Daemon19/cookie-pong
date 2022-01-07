@@ -1,7 +1,6 @@
 #pragma once
 
-#include "rect.h"
-#include "vector.h"
+#include "cookie.h"
 #include <SDL2/SDL.h>
 #include <random>
 
@@ -30,7 +29,7 @@ class Ball : public Entity
 private:
     bool move_up_, move_left_;
     const cookie::Vector2 start_pos_;
-    const float kStartVel_ = 4;
+    const float kStartVel_ = 3;
     const float kMainVel_ = 8;
     float vel_;
 

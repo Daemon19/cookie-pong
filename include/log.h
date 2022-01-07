@@ -6,18 +6,16 @@ namespace cookie::log
 {
     enum Level
     {
-        kLevelInfo = 0,
-        kLevelWarning,
-        kLevelError
+        kInfo = 0,
+        kWarning,
+        kError
     };
 
-    static Level log_level = kLevelInfo;
+    static Level log_level = kInfo;
 
     void Info(const std::string &message);
     void Warn(const std::string &message);
     void Error(const std::string &message);
-    // Print message ditambah dengan SDL_GetError()
-    void SdlError(const std::string &message);
 
-    inline void SetLevel(Level level) { log_level = level; }
+    inline void set_level(Level level) { log_level = level; }
 }

@@ -1,38 +1,35 @@
 #include "font.h"
-#include "log.h"
+#include "cookie_error.h"
 #include "texture.h"
 #include "window.h"
+
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 namespace cookie
 {
+    Font::Font(const std::string &file_path, int size) : font_(nullptr)
+    {
+        font_ = TTF_OpenFont(file_path.c_str(), size);
+
+        if (font_ == nullptr)
+            throw SdlError("Gagal membuka font");
+    }
+
     Font::~Font()
     {
         if (font_ != nullptr)
             TTF_CloseFont(font_);
     }
 
-    bool Font::Init(const std::string &file_path, int size)
-    {
-        if ((font_ = TTF_OpenFont(file_path.c_str(), size)) == NULL)
-        {
-            log::SdlError("Gagal membuka font");
-            return false;
-        }
-        return true;
-    }
-
-    bool Font::CreateTexture(Window &window, const std::string &text, const SDL_Color &color, Texture &tex)
+    Texture Font::CreateTexture(Window &window, const std::string &text, const SDL_Color &color)
     {
         SDL_Surface *surf = TTF_RenderText_Blended(font_, text.c_str(), color);
 
-        if (surf == NULL)
-        {
-            log::SdlError("Gagal merender text");
-            return false;
-        }
+        if (surf == nullptr)
+            throw SdlError("Gagal merender text");
 
-        return tex.Init(window, surf);
+        return Texture(window, surf);
     }
 }

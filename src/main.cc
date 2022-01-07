@@ -1,13 +1,6 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <string>
-
+#include "cookie.h"
 #include "entities.h"
-#include "font.h"
-#include "log.h"
-#include "texture.h"
-#include "window.h"
-#include "initializer.h"
+#include <SDL2/SDL.h>
 
 const int kWindowWidth = 800;
 const int kWindowHeight = 600;
@@ -25,21 +18,14 @@ const char *const kFontPath = "res/font/8bitOperatorPlusSC-Bold.ttf";
 
 int main(int argc, char *argv[])
 {
+
     cookie::Initializer initer;
+    initer.InitSdl(SDL_INIT_VIDEO);
+    initer.InitTtf();
 
-    if (!initer.InitSdl(SDL_INIT_VIDEO) ||
-        !initer.InitTtf())
-        return -1;
-
-    cookie::Font font;
-
-    if (!font.Init(kFontPath, 50))
-        return -1;
+    cookie::Font font(kFontPath, 50);
 
     cookie::Window window("Pong", kWindowWidth, kWindowHeight);
-
-    if (!window.Init())
-        return -1;
 
     float tmp_player_y = (kWindowHeight - kPlayerHeight) / 2.0f;
 
@@ -133,14 +119,11 @@ int main(int argc, char *argv[])
         ball.MoveAndCheckCollision(players, kPlayerCount);
         ball.CheckHorizontalBorder(kWindowWidth, players[0], players[1]);
 
-        cookie::Texture text_tex;
-
-        if (!font.CreateTexture(window, "Cookie Pong", SDL_Color{255, 255, 255, 255}, text_tex))
-            return -1;
+        cookie::Texture text_tex = font.CreateTexture(window, "Cookie Pong", SDL_Color{255, 255, 255, 255});
 
         SDL_Rect text_rect{0, 0, text_tex.w(), text_tex.h()};
 
-        SDL_RenderCopy(window.renderer(), text_tex.get(), NULL, &text_rect);
+        SDL_RenderCopy(window.renderer(), text_tex.sdl_tex(), NULL, &text_rect);
 
         SDL_RenderPresent(window.renderer());
     }
