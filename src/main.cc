@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     cookie::Font font(kFontPath, 50);
 
-    cookie::Window window("Pong", kWindowWidth, kWindowHeight);
+    cookie::Window window("Cookie Pong", kWindowWidth, kWindowHeight);
 
     float tmp_player_y = (kWindowHeight - kPlayerHeight) / 2.0f;
 
