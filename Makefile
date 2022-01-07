@@ -6,6 +6,7 @@ BUILD=build
 CXX=g++
 CXXFLAGS=-Wall -g -std=c++2a
 LDLIBS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf
+LDFLAGS=-mwindows
 INCFLAGS=-I $(INCLUDE)
 
 SRCS=$(wildcard $(SRC)/*.cc)
@@ -24,10 +25,10 @@ run:
 
 release: CXXFLAGS=-Wall -std=c++2a -O2 -DNDEBUG
 release:
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(SRCS) -o $(BIN) $^ $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(LDFLAGS) -o $(BIN) $(SRCS) $^ $(LDLIBS)
 
 $(BIN): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 $(OBJ)/%.o: $(SRC)/%.cc Makefile
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -MMD -MP -c -o $@ $<
