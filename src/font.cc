@@ -23,7 +23,8 @@ namespace cookie
             TTF_CloseFont(font_);
     }
 
-    Texture Font::CreateTexture(Window &window, const std::string &text, const SDL_Color &color)
+    Texture Font::CreateTexture(Window &window, const std::string &text,
+                                const SDL_Color &color)
     {
         SDL_Surface *surf = TTF_RenderText_Blended(font_, text.c_str(), color);
 

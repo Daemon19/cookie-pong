@@ -15,7 +15,7 @@ namespace cookie
             : runtime_error(Format(message)) {}
 
     private:
-        std::string Format(const std::string &message)
+        std::string Format(const std::string &message) const
         {
             return "[SDL ERROR] " + message + " : " + SDL_GetError();
         }
@@ -30,7 +30,7 @@ namespace cookie
             : runtime_error(Format(message)) {}
 
     private:
-        std::string Format(const std::string &message)
+        std::string Format(const std::string &message) const
         {
             return "[COOKIE ERROR] " + message;
         }

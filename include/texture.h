@@ -20,9 +20,9 @@ namespace cookie
         ~Texture();
 
         SDL_Texture *sdl_tex() { return tex_; }
-        int w() { return w_; }
-        int h() { return h_; }
-        Uint32 format() { return format_; }
-        int access() { return access_; }
+        int w() const { return w_; }
+        int h() const { return h_; }
+        Uint32 format() const { return format_; }
+        int access() const { return access_; }
     };
 }

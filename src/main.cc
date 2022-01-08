@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 
         for (Entity *e : entities)
         {
-            e->Draw(window.renderer());
+            e->Draw(window);
             e->Update();
             e->CheckVerticalBorder(kWindowHeight);
         }

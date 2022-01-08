@@ -14,7 +14,7 @@ public:
     Entity(float x, float y, int w, int h, const SDL_Color &color)
         : rect_(x, y, w, h), color_(color) {}
 
-    void Draw(SDL_Renderer *renderer) { rect_.DrawRect(renderer, color_); }
+    void Draw(cookie::Window &window) { rect_.DrawRect(window, color_); }
 
     virtual void Update() = 0;
     virtual void CheckVerticalBorder(int max_y) = 0;
