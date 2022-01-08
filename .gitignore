@@ -36,3 +36,9 @@
 
 # Referensi untuk game engine saya
 reference/
+
+# Resource file yang tidak terpakai
+res/unused/
+
+# Tempat executables disimpan
+build/
