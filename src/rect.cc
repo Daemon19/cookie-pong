@@ -1,6 +1,6 @@
 #include "rect.h"
 #include "window.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace cookie
 {

@@ -6,7 +6,7 @@ DIST=$(BUILD)/dist
 
 CXX=g++
 CXXFLAGS=-Wall -g -std=c++2a
-LDLIBS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf
+LDLIBS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer
 LDFLAGS=-mwindows
 INCFLAGS=-I $(INCLUDE)
 

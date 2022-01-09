@@ -1,6 +1,6 @@
 #include "cookie.h"
 #include "entities.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 const int kWindowWidth = 800;
 const int kWindowHeight = 600;

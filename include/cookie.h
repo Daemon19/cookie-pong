@@ -8,3 +8,7 @@
 #include "texture.h"
 #include "vector.h"
 #include "window.h"
+
+#include "audio.h"
+#include "sound.h"
+#include "music.h"
