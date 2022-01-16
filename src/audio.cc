@@ -1,6 +1,6 @@
 #include "audio.h"
 #include "cookie_error.h"
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 namespace cookie
 {
@@ -9,5 +9,4 @@ namespace cookie
         if (Mix_OpenAudio(frequency, format, channels, chunk_size) == -1)
             throw SdlError("Gagal membuka audio");
     }
-
 }

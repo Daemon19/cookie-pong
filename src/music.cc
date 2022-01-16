@@ -1,6 +1,6 @@
 #include "music.h"
 #include "cookie_error.h"
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
 
 namespace cookie

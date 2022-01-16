@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cookie.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <random>
 
 class Entity

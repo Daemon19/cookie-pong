@@ -1,8 +1,8 @@
 #include "initializer.h"
 #include "cookie_error.h"
-#include <SDL.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
 namespace cookie
 {

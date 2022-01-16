@@ -1,7 +1,7 @@
 #include "texture.h"
 #include "cookie_error.h"
 #include "window.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 namespace cookie
 {
