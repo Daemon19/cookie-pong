@@ -40,5 +40,8 @@ reference/
 # Resource file yang tidak terpakai
 res/unused/
 
-# Tempat executables disimpan
+# Tempat executables dibuat
 build/
+
+# Tempat executables disimpan
+bin/
